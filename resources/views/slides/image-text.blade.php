@@ -17,12 +17,16 @@
 
     <div class="slide__image-text">
         <div class="slide__image-wrap">
-            @if ($imageUrl ?? null)
+            @if (($imageUrl ?? null) && ($imageAvailable ?? false))
                 <img
                     class="slide__image"
                     src="{{ $imageUrl }}"
                     alt="{{ $imageAlt ?? '' }}"
                 >
+            @else
+                <div class="slide__image-placeholder" role="img" aria-label="Image unavailable">
+                    Image unavailable
+                </div>
             @endif
 
             @if ($imageCaption ?? null)

@@ -1,0 +1,15 @@
+{
+    "course": {
+        "title": "Test Course"
+    },
+    "module": {
+        "number": 1,
+        "title": "Test Module"
+    },
+    "slides": [
+        {
+            "type": "video",
+            "title": "Unsupported"
+        }
+    ]
+}

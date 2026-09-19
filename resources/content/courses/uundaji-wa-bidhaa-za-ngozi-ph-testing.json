@@ -1,0 +1,54 @@
+{
+    "course": {
+        "title": "Uundaji wa Bidhaa za Ngozi"
+    },
+    "module": {
+        "number": 1,
+        "title": "PH Testing in Skincare"
+    },
+    "metadata": {
+        "language": "sw",
+        "audience": "Cosmetic formulation students"
+    },
+    "slides": [
+        {
+            "type": "title",
+            "eyebrow": "Module 01",
+            "title": "PH Testing in Skincare",
+            "subtitle": "Misingi ya kupima na kurekebisha pH ya bidhaa za ngozi"
+        },
+        {
+            "type": "content",
+            "eyebrow": "Msingi",
+            "title": "Kwa nini pH ni muhimu?",
+            "content": [
+                "pH huathiri faraja ya ngozi, uthabiti wa fomula, na utendaji wa vihifadhi.",
+                "Kipimo sahihi husaidia mtengenezaji kufanya marekebisho kwa utaratibu na kwa usalama."
+            ]
+        },
+        {
+            "type": "bullet-list",
+            "eyebrow": "Mchakato",
+            "title": "Hatua za awali za kipimo",
+            "intro": "Kabla ya kurekebisha fomula, hakikisha kwamba:",
+            "items": [
+                "Sampuli imechanganywa sawasawa.",
+                "Kipima pH kimekalibishwa.",
+                "Joto la sampuli limeandikwa."
+            ]
+        },
+        {
+            "type": "image-text",
+            "eyebrow": "Kumbuka",
+            "title": "Pima, rekodi, kisha rekebisha",
+            "text": [
+                "Usiongeze asidi au alkali kabla ya kuandika kipimo cha mwanzo.",
+                "Mabadiliko madogo yanaweza kubadili hisia na uthabiti wa bidhaa."
+            ],
+            "imageUrl": "ph-testing.svg",
+            "imageAlt": "PH testing equipment",
+            "imageCaption": "Mfano wa eneo la kupimia pH.",
+            "imagePosition": "right"
+        }
+    ]
+}

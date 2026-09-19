@@ -1,0 +1,7 @@
+*
+!.gitignore
+!uundaji-wa-bidhaa-za-ngozi-ph-testing/
+!uundaji-wa-bidhaa-za-ngozi-ph-testing/images/
+!uundaji-wa-bidhaa-za-ngozi-ph-testing/images/ph-testing.svg
+*.log
+.DS_Store

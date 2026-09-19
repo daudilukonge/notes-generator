@@ -1,750 +1,134 @@
 # Notes Generator
 
-A Laravel-based system for creating professional educational notes and presentation-style PDF documents from structured JSON data.
+Notes Generator turns a validated JSON course document or ZIP package into reusable 16:9 HTML presentation slides and a downloadable PDF.
 
-The project is designed to replace the repetitive process of manually creating and formatting every slide in PowerPoint. Instead of designing each slide individually, the system uses reusable HTML/CSS slide layouts and structured JSON content.
+## MVP status
 
-The goal is to separate **content from presentation**:
-
-```text
-JSON Content
-     ↓
-Laravel
-     ↓
-Blade Templates
-     ↓
-HTML + CSS
-     ↓
-Slide Renderer
-     ↓
-PDF
-```
-
-This approach allows large courses, modules, lessons, and educational materials to be generated consistently while making future content updates much easier.
-
----
-
-## 1. Project Purpose
-
-Creating educational course slides manually in PowerPoint can become extremely time-consuming, especially when a course contains many modules and each module contains multiple slides.
-
-This project aims to solve that problem by creating a reusable document-generation system.
-
-Instead of manually creating:
+The core MVP is complete:
 
 ```text
-Slide 1
-Slide 2
-Slide 3
-Slide 4
-...
-Slide 50
+ZIP package -> validate -> private storage -> browser preview -> PDF download
 ```
 
-the content will be represented as structured data:
+The application is synchronous, database-free, and intentionally uses Blade, CSS, and vanilla JavaScript for the presentation layer.
+
+## Setup
+
+Requirements:
+
+- PHP 8.3+ and Composer
+- Node.js 22+
+- npm
+- Chromium managed by Puppeteer
+
+Install the application dependencies:
+
+```bash
+composer install
+npm install
+npx puppeteer browsers install chrome
+npm run build
+php artisan serve
+```
+
+Open the application at the URL printed by `php artisan serve`. The upload screen is available at `/` or `/slides/upload`.
+
+On Linux servers where Chromium cannot use its sandbox, set `SLIDES_PDF_NO_SANDBOX=true`. Prefer the sandboxed default whenever the host supports it. Optional binary overrides are available through `SLIDES_PDF_NODE_BINARY`, `SLIDES_PDF_NPM_BINARY`, and `SLIDES_PDF_CHROME_PATH`; `SLIDES_PDF_TIMEOUT` defaults to 60 seconds.
+
+## Package format
+
+A ZIP package must contain exactly one root-level JSON document and optional image files below `images/`:
+
+```text
+course-package.zip
+├── document.json
+└── images/
+    └── skin-structure.png
+```
+
+The JSON document contains `course.title`, `module.number`, `module.title`, and a non-empty `slides` list. An image-text slide references a package image with either `image` or `imageUrl`, for example:
 
 ```json
 {
-    "title": "PH",
-    "type": "content",
-    "content": [
-        "PH is a measurement of acidity and alkalinity.",
-        "The PH scale ranges from 0 to 14."
-    ]
-}
-```
-
-The application will determine how that information should be displayed using predefined slide templates.
-
-This means that changing the content does not require redesigning the slide.
-
----
-
-# 2. Main Objectives
-
-The system should eventually be able to:
-
-* Create presentation-style educational slides using HTML and CSS.
-* Store slide content in JSON.
-* Render JSON data through Laravel and Blade.
-* Support multiple reusable slide layouts.
-* Support images within slides.
-* Automatically generate multiple slides from one JSON document.
-* Maintain consistent typography, spacing, colors, and branding.
-* Generate high-quality PDF documents.
-* Allow the same content to be reused for different modules or courses.
-* Make content updates possible without modifying the slide design.
-* Reduce repetitive manual PowerPoint work.
-* Provide a foundation that can later support other document types.
-
----
-
-# 3. Current Project
-
-This project is currently being developed from a fresh Laravel installation.
-
-Current Laravel version:
-
-```text
-Laravel Framework 13.32.0
-```
-
-Laravel Boost has also been installed and configured for development assistance.
-
-The project is currently in the initial development stage.
-
-The first milestone is to create a single HTML/CSS slide before introducing JSON-driven rendering and PDF generation.
-
----
-
-# 4. Technology Stack
-
-## Backend
-
-* Laravel 13
-* PHP
-* Blade Templates
-
-## Frontend
-
-* HTML5
-* CSS3
-* Vanilla JavaScript
-
-The project should avoid introducing a frontend framework unless there is a clear technical reason to do so.
-
-The initial implementation should remain simple and dependency-light.
-
-## Data
-
-* JSON
-
-JSON will initially be used as the primary content source for slides.
-
-## Document Generation
-
-A suitable HTML-to-PDF solution will be selected during development.
-
-The PDF engine should be chosen based on its ability to accurately render:
-
-* CSS layouts
-* 16:9 slides
-* Images
-* Typography
-* Backgrounds
-* Spacing
-* Page breaks
-* Positioning
-* Modern CSS features where practical
-
-Do not install a PDF package until the requirements of the slide renderer have been tested and understood.
-
----
-
-# 5. Core Concept
-
-The most important architectural principle of this project is:
-
-> **Content and presentation must remain separate.**
-
-The JSON should describe **what the slide contains**.
-
-The Blade templates and CSS should describe **how the slide looks**.
-
-For example:
-
-```json
-{
-    "type": "content",
-    "title": "PH",
-    "content": [
-        "PH measures acidity and alkalinity.",
-        "The scale ranges from 0 to 14."
-    ]
-}
-```
-
-The JSON should not contain HTML such as:
-
-```html
-<h1>PH</h1>
-```
-
-and should not contain large amounts of CSS.
-
-Instead, the renderer decides how a `content` slide should be displayed.
-
----
-
-# 6. Planned Data Flow
-
-The intended data flow is:
-
-```text
-JSON File
-    ↓
-Laravel
-    ↓
-JSON Parser
-    ↓
-Slide Data
-    ↓
-Blade View
-    ↓
-Slide Template
-    ↓
-CSS
-    ↓
-Rendered HTML
-    ↓
-PDF Generator
-    ↓
-Final PDF
-```
-
-For a complete course:
-
-```text
-Course JSON
-    ↓
-Module
-    ↓
-Slides
-    ↓
-Slide Templates
-    ↓
-HTML Document
-    ↓
-PDF
-```
-
----
-
-# 7. Planned Slide System
-
-The application should use reusable slide types rather than creating a unique template for every slide.
-
-Potential slide types include:
-
-### Title Slide
-
-Used for:
-
-* Course titles
-* Module introductions
-* Major sections
-
-Example:
-
-```text
-UUNDAJI WA BIDHAA ZA NGOZI
-
-MODULE THREE
-
-PH TESTING IN SKINCARE
-```
-
----
-
-### Content Slide
-
-Used for normal educational content.
-
-Example:
-
-```text
-PH
-
-PH ni kipimo kinachoelezea kiwango
-cha acidity au alkalinity katika solution.
-```
-
----
-
-### Bullet Slide
-
-Used when information is naturally represented as a list.
-
-Example:
-
-```text
-PH SCALE
-
-• 0–6.9 = Acidic
-• 7 = Neutral
-• 7.1–14 = Alkaline
-```
-
----
-
-### Image + Text Slide
-
-Used when an image is required alongside educational content.
-
-Example:
-
-```text
-MUUNDO WA NGOZI
-
-[IMAGE]
-
-• Epidermis
-• Dermis
-• Hypodermis
-```
-
----
-
-### Two-Column Slide
-
-Used when content needs to be divided into two related sections.
-
----
-
-### Comparison Slide
-
-Used to compare two or more concepts.
-
-For example:
-
-```text
-ACIDIC                  ALKALINE
-
-0 ───────── 6.9         7.1 ───────── 14
-```
-
----
-
-### Table Slide
-
-Used for:
-
-* Ingredients
-* Formulas
-* Measurements
-* Comparisons
-* Classifications
-
----
-
-### Formula Slide
-
-Used for cosmetic formulation data.
-
-This may eventually support:
-
-* Ingredient names
-* Percentages
-* Gram weights
-* Phase names
-* Instructions
-* Notes
-
----
-
-### Important Note Slide
-
-Used to highlight important information or warnings.
-
----
-
-### Summary Slide
-
-Used at the end of a section or module.
-
----
-
-# 8. JSON Structure
-
-The exact JSON schema will evolve during development.
-
-A possible structure is:
-
-```json
-{
-    "course": {
-        "title": "Uundaji wa Bidhaa za Ngozi"
-    },
-    "module": {
-        "number": 3,
-        "title": "PH Testing in Skincare"
-    },
+    "course": {"title": "Cosmetic Formulation"},
+    "module": {"number": 1, "title": "Skin Structure"},
     "slides": [
+        {"type": "title", "title": "Skin Structure"},
         {
-            "type": "title",
-            "title": "PH",
-            "subtitle": "PH TESTING IN SKINCARE"
-        },
-        {
-            "type": "content",
-            "title": "PH",
-            "content": [
-                "PH ni kipimo kinachoelezea kiwango cha acidity na alkalinity.",
-                "PH hupimwa kwa kutumia PH meter au PH strips."
-            ]
+            "type": "image-text",
+            "title": "The skin layers",
+            "text": ["Epidermis", "Dermis", "Hypodermis"],
+            "image": "images/skin-structure.png",
+            "imageAlt": "Skin structure"
         }
     ]
 }
 ```
 
-The structure should remain:
+Image references must be relative filenames (or safe nested filenames) with an allowed image extension. URLs, filesystem paths, traversal segments, and files outside `images/` are rejected.
 
-* readable
-* predictable
-* easy to edit
-* easy to validate
-* independent from presentation markup
+## Upload, preview, and PDF workflow
 
----
+1. Upload a `.json` document or `.zip` package at `/slides/upload`.
+2. The importer validates the JSON, slide structure, archive paths, referenced images, file counts, and extracted size.
+3. The validated document is stored on the private `slide_documents` disk.
+4. The upload redirects to `/slides/{document}` for the browser preview.
+5. Select **Generate PDF**. The endpoint `/slides/{document}/pdf` renders the same Blade slide templates and stylesheet through headless Chrome and downloads one slide per PDF page.
 
-# 9. Image Handling
+The PDF filename is generated from validated course and module information. The original upload filename is never used as a download path.
 
-Images should also be controlled through data.
+## Architecture
 
-Example:
+- `CourseDocumentLoader` loads and validates JSON from private storage or the built-in sample content.
+- `SlideDocumentPackageImporter` inspects ZIP entries before streaming only approved JSON and image entries into a document-specific directory.
+- `SlideDocumentImageResolver` restricts every image to that document's private `images/` directory. PDF generation embeds only bytes returned by this resolver as data URIs; JSON never supplies a filesystem path to Chrome.
+- `SlideRenderer` selects the Blade template for each supported slide and can render the same document as preview HTML or PDF HTML with the existing `resources/css/slides.css` inlined for the browser renderer.
+- `SlidePdfGenerator` is the synchronous PDF application service. It uses Spatie Browsershot 5 with Puppeteer/Chromium, sets a 16 × 9 inch page, enables backgrounds, removes margins, and respects the print page size.
+- `SlidePdfController` coordinates loading, PDF generation, safe download headers, and user-facing failure responses.
 
-```json
-{
-    "type": "image-text",
-    "title": "Muundo wa Ngozi",
-    "image": "skin-structure.png",
-    "image_position": "right",
-    "content": [
-        "Epidermis",
-        "Dermis",
-        "Hypodermis"
-    ]
-}
-```
-
-The application should resolve the image path rather than requiring HTML to be written inside the JSON.
-
-Images may eventually be organized by course and module:
+Storage has no database record. Documents are stored privately as:
 
 ```text
-storage/
-└── app/
-    └── notes/
-        └── cosmetics/
-            ├── module-01/
-            │   └── images/
-            ├── module-02/
-            │   └── images/
-            └── module-03/
-                └── images/
+storage/app/slide-documents/{document-id}/
+├── document.json
+└── images/
+    └── ...
 ```
 
-The exact storage strategy will be finalized during implementation.
+The only image delivery endpoint is `/slides/{document}/images/{image}`. The private storage filesystem is not exposed publicly.
 
----
+## Supported slide types
 
-# 10. Slide Dimensions
+- `title`
+- `content`
+- `bullet-list`
+- `image-text`
 
-The primary output should be designed around a presentation-style 16:9 aspect ratio.
+Each slide carries its own footer and page number. The renderer keeps one slide as one fixed 16:9 canvas, prevents page splitting, and removes the trailing page break from the final slide.
 
-The slide should behave as a fixed visual canvas.
+## Development and verification
 
-Conceptually:
-
-```text
-┌────────────────────────────────────────────────────┐
-│                                                    │
-│                                                    │
-│                    SLIDE CONTENT                   │
-│                                                    │
-│                                                    │
-└────────────────────────────────────────────────────┘
+```bash
+composer show --direct
+php artisan route:list
+php artisan test --compact
+vendor/bin/pint --dirty --format agent
+npm run build
+git diff --check
 ```
 
-The HTML/CSS implementation should maintain consistent proportions.
+The focused PDF coverage is in `tests/Feature/SlidePdfTest.php`. Existing upload, package-security, image-resolution, validation, and preview tests remain in `tests/Feature/Slide*Test.php`.
 
-The PDF renderer must preserve those proportions when producing the final document.
+## PDF engine requirements
 
----
+The selected engine is browser-based because the current slide design uses CSS Grid, CSS variables, `clamp()`, `aspect-ratio`, print rules, backgrounds, and local images. A traditional PHP-only engine would require a second layout or would render these features inconsistently. Browsershot delegates to Puppeteer and Chromium, so the PDF uses the same HTML/CSS design as the browser preview.
 
-# 11. Design System
+The runtime dependency is `spatie/browsershot` plus the npm `puppeteer` package and its managed Chrome download. No PHP PDF library or database is used.
 
-The project should eventually have a centralized visual design system.
+## Known MVP limitations
 
-This should control:
-
-* Primary colors
-* Secondary colors
-* Background colors
-* Text colors
-* Typography
-* Heading sizes
-* Body text sizes
-* Spacing
-* Border radius
-* Shadows
-* Image treatments
-* Footer styles
-* Page numbering
-* Module indicators
-
-The goal is to make the entire document visually consistent.
-
-A design change should ideally require changing the design system rather than editing every slide individually.
-
----
-
-# 12. Blade Architecture
-
-Blade should be used to separate reusable layouts from individual slide types.
-
-A possible structure is:
-
-```text
-resources/views/
-└── slides/
-    ├── layout.blade.php
-    ├── title.blade.php
-    ├── content.blade.php
-    ├── bullets.blade.php
-    ├── image-text.blade.php
-    ├── two-column.blade.php
-    ├── comparison.blade.php
-    ├── table.blade.php
-    ├── formula.blade.php
-    ├── note.blade.php
-    └── summary.blade.php
-```
-
-The final structure may change as the application develops.
-
-Do not create templates unnecessarily.
-
-A new template should only be introduced when an existing template cannot reasonably represent the required slide.
-
----
-
-# 13. CSS Architecture
-
-CSS should be organized around reusable classes and components.
-
-For example:
-
-```text
-resources/
-└── css/
-    ├── slides.css
-    ├── variables.css
-    ├── typography.css
-    └── components.css
-```
-
-The exact structure may be simplified if the project does not require multiple files.
-
-CSS should avoid excessive duplication.
-
-Instead of:
-
-```css
-.slide-one-title {}
-.slide-two-title {}
-.slide-three-title {}
-```
-
-use reusable classes:
-
-```css
-.slide-title {}
-```
-
-The system should be designed around reusable components.
-
----
-
-# 14. JavaScript
-
-Vanilla JavaScript may be used for tasks such as:
-
-* Slide preview
-* Dynamic rendering
-* Navigation during development
-* Validation
-* Image handling
-* Preview controls
-* Optional client-side interactions
-
-JavaScript should not be used when the same functionality can be handled more simply by Laravel or Blade.
-
-The final PDF should not depend on unnecessary client-side behavior.
-
----
-
-# 15. Development Phases
-
-Development should proceed incrementally.
-
-## Phase 1 — Basic Laravel Setup
-
-* Confirm Laravel installation.
-* Configure environment.
-* Create basic route.
-* Create first Blade view.
-* Verify browser rendering.
-
----
-
-## Phase 2 — First Slide
-
-Create one 16:9 HTML/CSS slide.
-
-The first slide should establish:
-
-* Dimensions
-* Typography
-* Background
-* Spacing
-* Basic branding
-* Header/footer behavior
-
-No JSON or PDF generation is required yet.
-
----
-
-## Phase 3 — Slide Templates
-
-Create reusable slide templates.
-
-Initial templates may include:
-
-* Title
-* Content
-* Bullet
-* Image + Text
-* Two Column
-
----
-
-## Phase 4 — JSON Rendering
-
-Introduce JSON as the source of slide content.
-
-The application should:
-
-1. Read JSON.
-2. Decode it.
-3. Iterate through slides.
-4. Determine each slide type.
-5. Render the correct Blade template.
-6. Produce a complete HTML document.
-
----
-
-## Phase 5 — Images
-
-Implement image handling.
-
-Test:
-
-* Local images
-* Different image sizes
-* Portrait images
-* Landscape images
-* Transparent PNGs
-* Image cropping
-* Image positioning
-
----
-
-## Phase 6 — PDF Generation
-
-Select and install the appropriate PDF engine.
-
-Test:
-
-* One slide
-* Multiple slides
-* Images
-* Fonts
-* Backgrounds
-* Page breaks
-* 16:9 dimensions
-
----
-
-## Phase 7 — Real Course Content
-
-Use actual cosmetic course material.
-
-The first realistic test will be:
-
-```text
-Module Three
-PH Testing in Skincare
-```
-
-This will allow the system to be tested with real educational content instead of artificial placeholder data.
-
----
-
-## Phase 8 — Formula and Advanced Slides
-
-Introduce specialized layouts for:
-
-* Cosmetic formulas
-* Ingredient tables
-* Procedures
-* Safety notes
-* Comparisons
-* Ingredient classifications
-* Course summaries
-
----
-
-## Phase 9 — PDF Quality and Optimization
-
-Improve:
-
-* Typography
-* Image quality
-* PDF file size
-* Page breaks
-* Rendering consistency
-* Performance
-* Error handling
-
----
-
-# 16. Development Principles
-
-The following principles should guide development.
-
-### 1. Build incrementally
-
-Do not build the entire application at once.
-
-Every stage should produce something testable.
-
----
-
-### 2. Keep content separate from design
-
-JSON should contain content.
-
-Blade should control structure.
-
-CSS should control appearance.
-
----
-
-### 3. Prefer reusable components
-
-If something is used more than once, consider whether it should become a reusable component.
-
----
-
-### 4. Avoid unnecessary dependencies
-
-Do not install packages simply because they are popular.
-
-Every dependency should have a clear purpose.
-
----
-
-### 5. Understand before abstracting
-
-Do not create complex services, repositories, facto
+- PDF generation is synchronous; very large packages may take longer than the configured timeout.
+- Chromium/Node must be installed wherever PDF downloads are served.
+- Only the four listed slide layouts are supported. Advanced layouts such as tables, comparisons, formulas, notes, and summaries are not implemented.
+- There is no authentication, account management, database-backed document catalog, queue, analytics, or multi-user permission system.
+- Layout fidelity depends on the installed Chromium version and fonts available on the host. The slide stylesheet uses system fallbacks and does not bundle a custom font.

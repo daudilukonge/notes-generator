@@ -7,45 +7,35 @@
     $slideClass = trim('slide '.($slideClass ?? ''));
 @endphp
 
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ $documentTitle }}</title>
+<article
+    class="{{ $slideClass }}"
+    @if ($slideId ?? null) id="{{ $slideId }}" @endif
+    @if ($pageNumber !== null) data-slide-number="{{ $pageNumber }}" @endif
+    @if ($pageCount !== null) data-slide-count="{{ $pageCount }}" @endif
+>
+    <div class="slide__surface">
+        <header class="slide__header">
+            @yield('slide-header')
+        </header>
 
-        @vite('resources/css/slides.css')
-    </head>
-    <body class="slides-document">
-        <article
-            class="{{ $slideClass }}"
-            @if ($slideId ?? null) id="{{ $slideId }}" @endif
-        >
-            <div class="slide__surface">
-                <header class="slide__header">
-                    @yield('slide-header')
-                </header>
+        <main class="slide__content">
+            @yield('slide-content')
+        </main>
 
-                <main class="slide__content">
-                    @yield('slide-content')
-                </main>
-
-                @if ($showFooter)
-                    <footer class="slide__footer">
-                        @if ($footer)
-                            <span>{{ $footer }}</span>
-                        @endif
-
-                        @yield('slide-footer')
-
-                        @if ($pageNumber !== null)
-                            <span class="slide__page-number">
-                                {{ $pageNumber }}@if ($pageCount !== null) / {{ $pageCount }}@endif
-                            </span>
-                        @endif
-                    </footer>
+        @if ($showFooter)
+            <footer class="slide__footer">
+                @if ($footer)
+                    <span>{{ $footer }}</span>
                 @endif
-            </div>
-        </article>
-    </body>
-</html>
+
+                @yield('slide-footer')
+
+                @if ($pageNumber !== null)
+                    <span class="slide__page-number">
+                        {{ $pageNumber }}@if ($pageCount !== null) / {{ $pageCount }}@endif
+                    </span>
+                @endif
+            </footer>
+        @endif
+    </div>
+</article>

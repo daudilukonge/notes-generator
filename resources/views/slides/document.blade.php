@@ -11,7 +11,10 @@
             @vite('resources/css/slides.css')
         @endif
     </head>
-    <body class="slides-document{{ ($pdf ?? false) ? ' slides-document--pdf' : '' }}">
+    <body
+        class="slides-document{{ ($pdf ?? false) ? ' slides-document--pdf' : '' }}"
+        @if ($themeStyle ?? null) style="{{ $themeStyle }}" @endif
+    >
         @if (! ($pdf ?? false))
             <nav class="slides-preview__toolbar" aria-label="Slide actions">
                 <a href="{{ route('slides.pdf', ['document' => $documentName]) }}">Generate PDF</a>

@@ -34,7 +34,8 @@ class SlideRenderer
         $courseTitle = $document['course']['title'];
         $module = $document['module'];
         $documentTitle = $courseTitle.' — '.$module['title'];
-        $footer = $courseTitle.' · Module '.$module['number'];
+        $footer = $this->footerFor($document, $courseTitle, $module['number']);
+        $themeStyle = $this->themeStyle($document['theme'] ?? null);
         $renderedSlides = [];
 
         foreach ($slides as $index => $slide) {
@@ -65,10 +66,36 @@ class SlideRenderer
             'course' => $document['course'],
             'module' => $module,
             'metadata' => $document['metadata'] ?? [],
+            'themeStyle' => $themeStyle,
             'slides' => $renderedSlides,
             'pdf' => $forPdf,
             'styles' => $styles,
         ]);
+    }
+
+    /** @param array<string, mixed> $document */
+    private function footerFor(array $document, string $courseTitle, int $moduleNumber): string
+    {
+        $footerText = $document['footer']['text'] ?? null;
+
+        return is_string($footerText) ? $footerText : $courseTitle.' · Module '.$moduleNumber;
+    }
+
+    private function themeStyle(mixed $theme): ?string
+    {
+        if (! is_array($theme)) {
+            return null;
+        }
+
+        foreach (['primary', 'secondary', 'accent'] as $colorName) {
+            if (! is_string($theme[$colorName] ?? null)) {
+                return null;
+            }
+        }
+
+        return '--slide-primary: '.$theme['primary'].'; '
+            .'--slide-secondary: '.$theme['secondary'].'; '
+            .'--slide-accent: '.$theme['accent'].';';
     }
 
     /** @param array<string, mixed> $slide */

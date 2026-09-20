@@ -33,6 +33,50 @@ class SlideDocumentUploadTest extends TestCase
         ));
     }
 
+    public function test_document_theme_and_footer_are_accepted_and_stored(): void
+    {
+        Storage::fake('slide_documents');
+        $document = $this->validDocument();
+        $document['theme'] = [
+            'primary' => '#123456',
+            'secondary' => '#abcdef',
+            'accent' => '#c77948',
+        ];
+        $document['footer'] = ['text' => 'AsiliSpot | Uundaji wa Bidhaa za Ngozi'];
+
+        $response = $this->post(route('slides.upload.store'), [
+            'file' => $this->jsonUpload('themed-course.json', $document),
+        ]);
+
+        $response->assertRedirect();
+        $files = Storage::disk('slide_documents')->allFiles('slide-documents');
+
+        self::assertSame($document, json_decode(
+            Storage::disk('slide_documents')->get($files[0]),
+            true,
+            512,
+            JSON_THROW_ON_ERROR,
+        ));
+    }
+
+    public function test_an_invalid_theme_color_is_rejected(): void
+    {
+        Storage::fake('slide_documents');
+        $document = $this->validDocument();
+        $document['theme'] = [
+            'primary' => 'blue',
+            'secondary' => '#abcdef',
+            'accent' => '#c77948',
+        ];
+
+        $response = $this->post(route('slides.upload.store'), [
+            'file' => $this->jsonUpload('invalid-theme.json', $document),
+        ]);
+
+        $this->assertUploadErrorContains($response, 'invalid structure');
+        self::assertSame([], Storage::disk('slide_documents')->allFiles('slide-documents'));
+    }
+
     public function test_an_uploaded_document_can_be_previewed(): void
     {
         Storage::fake('slide_documents');

@@ -102,6 +102,12 @@ class SlidePdfTest extends TestCase
         return [
             'course' => ['title' => 'PDF Course'],
             'module' => ['number' => 2, 'title' => 'PDF Module'],
+            'theme' => [
+                'primary' => '#123456',
+                'secondary' => '#abcdef',
+                'accent' => '#c77948',
+            ],
+            'footer' => ['text' => 'PDF Course | Custom footer'],
             'slides' => [
                 ['type' => 'title', 'title' => 'PDF title', 'subtitle' => 'Subtitle'],
                 ['type' => 'content', 'title' => 'Content', 'content' => ['A paragraph.']],

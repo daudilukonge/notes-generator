@@ -13,6 +13,8 @@ class CourseDocumentLoader
 {
     private const UPLOAD_DIRECTORY = 'slide-documents';
 
+    private const THEME_COLOR_PATTERN = '/\\A#(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})\\z/';
+
     /** @var array<int, string> */
     public const SUPPORTED_SLIDE_TYPES = [
         'title',
@@ -163,6 +165,12 @@ class CourseDocumentLoader
             'module.number' => ['required', 'integer', 'min:1'],
             'module.title' => ['required', 'string'],
             'metadata' => ['sometimes', 'array'],
+            'theme' => ['sometimes', 'array'],
+            'theme.primary' => ['required_with:theme', 'string', 'regex:'.self::THEME_COLOR_PATTERN],
+            'theme.secondary' => ['required_with:theme', 'string', 'regex:'.self::THEME_COLOR_PATTERN],
+            'theme.accent' => ['required_with:theme', 'string', 'regex:'.self::THEME_COLOR_PATTERN],
+            'footer' => ['sometimes', 'array'],
+            'footer.text' => ['required_with:footer', 'string', 'max:255'],
             'slides' => ['required', 'array', 'min:1'],
             'slides.*' => ['required', 'array'],
             'slides.*.type' => ['required', 'string'],

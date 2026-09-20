@@ -130,4 +130,44 @@ class SlidePdfTest extends TestCase
             true,
         );
     }
+
+    public function test_structured_document_pdf_keeps_explicit_order_and_local_images(): void
+    {
+        Storage::fake('slide_documents');
+        $document = [
+            'course' => ['title' => 'Structured PDF course'],
+            'module' => ['number' => 1, 'title' => 'Structured PDF module'],
+            'author' => ['name' => 'PDF author', 'description' => 'PDF description'],
+            'organization' => ['name' => 'PDF organization', 'logo' => 'logo.png'],
+            'document' => ['year' => 2026],
+            'slides' => [
+                ['type' => 'cover', 'title' => 'Structured PDF course'],
+                ['type' => 'module-title', 'title' => 'Structured PDF module'],
+                [
+                    'type' => 'image-text',
+                    'title' => 'Local image',
+                    'text' => ['Image text.'],
+                    'image' => 'images/skin.png',
+                    'imageAlt' => 'Skin diagram',
+                    'imagePosition' => 'right',
+                ],
+                ['type' => 'end', 'title' => 'ASANTE SANA', 'subtitle' => 'Tukutane katika Moduli 2', 'designation' => 'Mwisho wa Moduli 1'],
+            ],
+        ];
+        $storage = Storage::disk('slide_documents');
+        $storage->put('slide-documents/structured-pdf/document.json', json_encode($document, JSON_THROW_ON_ERROR));
+        $storage->put('slide-documents/structured-pdf/images/skin.png', $this->imageContents());
+        $storage->put('slide-documents/structured-pdf/images/logo.png', $this->imageContents());
+
+        $response = $this->get(route('slides.pdf', ['document' => 'structured-pdf']));
+        $pdf = $response->getContent();
+
+        $response->assertOk()
+            ->assertHeader('Content-Type', 'application/pdf')
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
+
+        self::assertStringStartsWith('%PDF-', $pdf);
+        self::assertSame(4, preg_match_all('/\/Type\s+\/Page(?!s)\b/', $pdf));
+        self::assertStringContainsString('/Subtype /Image', $pdf);
+    }
 }

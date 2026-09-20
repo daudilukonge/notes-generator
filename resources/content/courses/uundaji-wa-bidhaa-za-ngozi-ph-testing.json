@@ -1,54 +1,577 @@
 {
-    "course": {
-        "title": "Uundaji wa Bidhaa za Ngozi"
+  "course": {
+    "title": "Uundaji wa Bidhaa za Ngozi"
+  },
+  "module": {
+    "number": 1,
+    "title": "Sayansi ya Ngozi",
+    "designation": "Moduli 1"
+  },
+  "theme": {
+    "primary": "#4c2b08",
+    "secondary": "#cdd4b1",
+    "accent": "#ab7743"
+  },
+  "footer": {
+    "text": "AsiliSpot Formulation Organization | www.asilispot.org | +255 768 078 727"
+  },
+  "metadata": {
+    "description": "Moduli ya 1: Utambulisho wa Sayansi ya Ngozi"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "title": "Uundaji wa Bidhaa za Ngozi",
+      "designation": "Module 1"
     },
-    "module": {
-        "number": 1,
-        "title": "PH Testing in Skincare"
+    {
+      "type": "module-title",
+      "title": "Sayansi ya Ngozi"
     },
-    "metadata": {
-        "language": "sw",
-        "audience": "Cosmetic formulation students"
+    {
+      "type": "content",
+      "title": "Umuhimu wa Ngozi",
+      "content": [
+        "Ngozi inachukua nafasi kubwa sana kwenye mwili, takribani asilimia 15 ya uzito wote wa mwili.",
+        "Ngozi hufanya kazi kubwa mbalimbali, zikiwemo kulinda mwili dhidi ya kemikali kutoka nje, kuzuia upotevu mkubwa wa maji mwilini na kusaidia kudhibiti joto la mwili, yaani thermoregulation.",
+        "Ngozi pia ina uwezo mdogo wa kunyonya vitu vinavyopakwa juu yake.",
+        "Aidha, ngozi hutengeneza moisturizer yake yenyewe inayoitwa sebum, ambayo hutengenezwa na tezi maalumu zinazoitwa sebaceous glands."
+      ]
     },
-    "slides": [
-        {
-            "type": "title",
-            "eyebrow": "Module 01",
-            "title": "PH Testing in Skincare",
-            "subtitle": "Misingi ya kupima na kurekebisha pH ya bidhaa za ngozi"
-        },
-        {
-            "type": "content",
-            "eyebrow": "Msingi",
-            "title": "Kwa nini pH ni muhimu?",
-            "content": [
-                "pH huathiri faraja ya ngozi, uthabiti wa fomula, na utendaji wa vihifadhi.",
-                "Kipimo sahihi husaidia mtengenezaji kufanya marekebisho kwa utaratibu na kwa usalama."
-            ]
-        },
-        {
-            "type": "bullet-list",
-            "eyebrow": "Mchakato",
-            "title": "Hatua za awali za kipimo",
-            "intro": "Kabla ya kurekebisha fomula, hakikisha kwamba:",
-            "items": [
-                "Sampuli imechanganywa sawasawa.",
-                "Kipima pH kimekalibishwa.",
-                "Joto la sampuli limeandikwa."
-            ]
-        },
-        {
-            "type": "image-text",
-            "eyebrow": "Kumbuka",
-            "title": "Pima, rekodi, kisha rekebisha",
-            "text": [
-                "Usiongeze asidi au alkali kabla ya kuandika kipimo cha mwanzo.",
-                "Mabadiliko madogo yanaweza kubadili hisia na uthabiti wa bidhaa."
-            ],
-            "imageUrl": "ph-testing.svg",
-            "imageAlt": "PH testing equipment",
-            "imageCaption": "Mfano wa eneo la kupimia pH.",
-            "imagePosition": "right"
-        }
-    ]
+    {
+      "type": "bullet-list",
+      "title": "Tabaka Kuu za Ngozi",
+      "intro": "Ngozi ina tabaka kuu tatu:",
+      "items": [
+        "Epidermis – Tabaka la juu la ngozi.",
+        "Dermis – Tabaka la katikati la ngozi.",
+        "Hypodermis – Tabaka la chini kabisa la ngozi."
+      ]
+    },
+    {
+      "type": "image-text",
+      "title": "Epidermis",
+      "text": [
+        "Epidermis ni tabaka la juu la ngozi ambalo linaonekana kwa nje.",
+        "Hili ndilo tabaka ambalo vipodozi tunavyopaka kwenye ngozi hukutana nalo kwanza.",
+        "Ni muhimu kuelewa ni viungo na seli gani vinavyohusiana na epidermis ili kufahamu namna skincare ingredients zinavyofanya kazi."
+      ],
+      "image": "images/structure-of-skin.jpg",
+      "imageAlt": "Muundo wa ngozi",
+      "imagePosition": "right"
+    },
+    {
+      "type": "bullet-list",
+      "title": "Aina za Seli za Epidermis",
+      "intro": "Epidermis ina aina kuu tatu za seli:",
+      "items": [
+        "Keratinocytes",
+        "Melanocytes",
+        "Langerhans Cells"
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Keratinocytes",
+      "content": [
+        "Keratinocytes ni seli zinazounda mkusanyiko wa tabaka mbalimbali za epidermis.",
+        "Zikitazamwa kwa kutumia microscope, seli hizi huonekana kama ukuta wa matofali."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Melanocytes",
+      "content": [
+        "Melanocytes ni seli zinazotengeneza pigment inayoitwa melanin.",
+        "Melanin ni kemikali inayosaidia kuipa ngozi rangi yake.",
+        "Melanocytes hutengeneza melanin, kisha hupeleka chembechembe hizo kwenye cytoplasm zilizo karibu na keratinocytes."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Kazi ya Melanin",
+      "content": [
+        "Chembechembe za melanin huungana pamoja na kunyonya miale ya jua inapopita kwenye tabaka la juu la epidermis.",
+        "Baada ya hapo, hutengeneza kama uzio au kinga juu ya keratinocytes.",
+        "Watu wenye ngozi nyeusi zaidi hawana lazima wawe na idadi kubwa zaidi ya melanocytes.",
+        "Badala yake, melanocytes zao huwa na uwezo mkubwa zaidi wa kufanya kazi na kutengeneza melanin nyingi zaidi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Langerhans Cells",
+      "content": [
+        "Langerhans Cells hutengeneza takribani asilimia 4 ya seli zote zinazopatikana ndani ya epidermis.",
+        "Seli hizi ni muhimu sana katika mfumo wa kinga ya mwili, yaani immune system.",
+        "Kitu chochote cha kigeni kinapokutana na ngozi, Langerhans cells zinaweza kukusanya chembechembe za vitu hivyo vya kigeni na kuvisafirisha kwenda sehemu nyingine za mwili."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Safari ya Langerhans Cells",
+      "content": [
+        "Langerhans cell inaweza kusogea kutoka kwenye epidermis.",
+        "Kupitia sehemu ya chini ya membrane ndani ya dermis.",
+        "Kisha kupitia lymph vessels.",
+        "Na kufika kwenye lymph nodes.",
+        "Ndani ya lymph nodes, foreign materials zinaweza kuchakatwa na kuondolewa kabisa."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Umuhimu wa Kuelewa Seli za Ngozi",
+      "content": [
+        "Uelewa wa namna ngozi ilivyoundwa unaweza kusaidia kufahamu jinsi skincare ingredients zinavyoweza kuathiri mwili mzima.",
+        "Pia husaidia kuelewa kwamba ngozi siyo tu kifuniko kisichopitisha maji (waterproof cover), bali ni sehemu hai ya mwili wa binadamu.",
+        "Ni muhimu kuelewa jinsi seli hizi zinavyoungana na kufanya kazi pamoja kutengeneza mfumo mzima wa ngozi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Maana ya Upenyo wa Vipodozi kwenye Ngozi",
+      "content": [
+        "Penetration, au upenyo wa kipodozi kwenye ngozi, ni kiasi ambacho kipodozi kinaweza kufika kati ya tabaka la juu la ngozi, linaloitwa Stratum Corneum, na tabaka la chini la epidermis, linaloitwa Stratum Basale.",
+        "Katika hatua hii ya penetration, ngozi bado haijanyonya malighafi za kipodozi kiasi cha kuweza kuathiri mwili mzima.",
+        "Malighafi hupenya kwenye tabaka la juu la ngozi, kisha huondolewa pamoja na ngozi iliyokufa kupitia exfoliation."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Maana ya Unyonyaji wa Vipodozi",
+      "content": [
+        "Absorption, au unyonyaji wa kipodozi kwenye ngozi, hutokea pale ambapo kiasi cha kipodozi kilichotumika kinapita kwenye tabaka mbalimbali za ngozi na kufikia mfumo wa damu.",
+        "Hii ni tofauti na penetration, kwa sababu absorption inahusisha malighafi kuingia ndani zaidi ya ngozi na kufikia mifumo ya mwili."
+      ]
+    },
+    {
+      "type": "bullet-list",
+      "title": "Vitu Vinavyoathiri Upenyo wa Kipodozi",
+      "intro": "Mambo yanayoweza kuonyesha au kuathiri upenyo wa kipodozi kwenye ngozi ni:",
+      "items": [
+        "Ukubwa au uzito wa molekuli ya kipodozi",
+        "Uwezo wa kuyeyuka (Solubility)",
+        "Formula ya kipodozi"
+      ]
+    },
+    {
+      "type": "image-text",
+      "title": "Muundo wa Ngozi",
+      "text": [
+        "Ngozi ina tabaka kuu tatu: Epidermis, Dermis na Hypodermis.",
+        "Kila tabaka lina muundo na kazi zake ndani ya mfumo mzima wa ngozi."
+      ],
+      "image": "images/structure-of-skin.jpg",
+      "imageAlt": "Muundo wa ngozi",
+      "imagePosition": "right"
+    },
+    {
+      "type": "bullet-list",
+      "title": "Tabaka za Epidermis",
+      "intro": "Muundo wa epidermis una tabaka kuu nne:",
+      "items": [
+        "The Horny Layer",
+        "The Granular Layer",
+        "The Prickle Layer",
+        "The Basal Cell Layer"
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Safari ya Keratinocyte",
+      "content": [
+        "Tabaka hizi zinaelezea safari nzima inayochukuliwa na keratinocyte.",
+        "Keratinocyte huanza ikiwa seli mpya yenye mng’ao chini ya epidermis, kisha husogea kuelekea juu.",
+        "Kadiri inavyosogea, hubadilika na kuwa seli iliyolala, ngumu na iliyokauka, mpaka kufikia juu ya ngozi ambapo huondolewa."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Squames na Keratin",
+      "content": [
+        "Seli hizo zilizokuwa tambarare, kavu na za nje huitwa squames.",
+        "Kwa pamoja, squames ndizo zinazounda sehemu ya nje ya ngozi.",
+        "Seli hizi hutengeneza protein ngumu sana inayoitwa keratin.",
+        "Sababu ya tabaka la nje kuwa na seli ngumu na kavu ni kulinda tissues hai zilizopo chini yake."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Kwa Nini Tabaka la Nje ni Kavu na Ngumu?",
+      "content": [
+        "Tissues zilizo hai ndani ya mwili zinaweza kuwa na maji kwa kiwango cha hadi asilimia 80.",
+        "Kwa upande mwingine, hewa ya kawaida ina takribani asilimia 1 ya maji.",
+        "Kwa hiyo, kuwa na seli ngumu na kavu kwenye tabaka la nje husaidia kulinda tissues zilizo hai dhidi ya kupoteza maji."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Dermis",
+      "content": [
+        "Dermis ni tabaka la katikati la ngozi.",
+        "Tabaka hili lina elastic structure inayolinda na kushikilia miundo muhimu ya mwili, kama vile blood vessels, lymph vessels, sensory nerve endings na sweat glands."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Seli na Fibers za Dermis",
+      "content": [
+        "Dermis ina seli chache sana ukilinganisha na epidermis.",
+        "Seli hizi zimezungukwa na nyuzi ngumu zinazoitwa collagen fibers.",
+        "Pia kuna elastic fibers, ambazo husaidia dermis kuwa laini, inayonyumbulika na yenye uwezo wa kurudi katika hali yake."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Fibroblasts",
+      "content": [
+        "Ndani ya dermis kuna seli maalumu zinazoitwa fibroblasts.",
+        "Fibroblasts hutengeneza collagen, hasa katika masuala yanayohusiana na uponyaji wa vidonda."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Hypodermis",
+      "content": [
+        "Hypodermis ni tabaka la mwisho kabisa la ngozi.",
+        "Ni tabaka nene lililopo kati ya dermis, iliyo juu yake, na facial tissue, iliyo chini yake.",
+        "Hypodermis ina bundles za collagen na imeundwa zaidi na adipocytes, ambazo ni seli za mafuta."
+      ]
+    },
+    {
+      "type": "bullet-list",
+      "title": "Kazi za Hypodermis",
+      "intro": "Hypodermis inahusiana na:",
+      "items": [
+        "Metabolism ya adipocytes.",
+        "Kuvunjwa kwa mafuta mwilini.",
+        "Kutunza nguvu.",
+        "Kusaidia insulation dhidi ya baridi na joto.",
+        "Kutoa padding au kinga ya kulinda sehemu za ndani za mwili."
+      ]
+    },
+    {
+      "type": "bullet-list",
+      "title": "Kazi Kuu za Ngozi",
+      "intro": "Kazi kuu za ngozi ni:",
+      "items": [
+        "Protection – Ulinzi.",
+        "Thermoregulation – Udhibiti wa joto.",
+        "Sensation – Hisia."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Protection – Ulinzi",
+      "content": [
+        "Ngozi hufanya kazi kama protective barrier dhidi ya majeraha ya kimwili, upotevu wa unyevu, upotevu wa protein na uharibifu unaosababishwa na UV radiation."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Thermoregulation – Udhibiti wa Joto",
+      "content": [
+        "Moja kati ya kazi kubwa za ngozi ni kulinda mwili dhidi ya baridi na joto.",
+        "Ngozi husaidia mwili kudumisha joto la kawaida na lisilobadilika sana."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Sensation – Hisia",
+      "content": [
+        "Ngozi ni kiungo cha hisia ya kugusa (sense of touch).",
+        "Ngozi inaweza kuchochea mwitikio tunapogusa kitu.",
+        "Pia ina uwezo wa kutambua vitu vinavyosababisha maumivu."
+      ]
+    },
+    {
+      "type": "image-text",
+      "title": "Aina za Ngozi",
+      "text": [
+        "Kuna aina nne kuu za ngozi yenye afya: Normal Skin, Dry Skin, Oily Skin na Combination Skin.",
+        "Aina ya ngozi huamuliwa kwa kiasi kikubwa na genetics.",
+        "Hata hivyo, hali ya ngozi inaweza kubadilika kulingana na mambo ya ndani na ya nje ya mwili."
+      ],
+      "image": "images/types-of-skin.jpg",
+      "imageAlt": "Aina za ngozi",
+      "imagePosition": "right"
+    },
+    {
+      "type": "content",
+      "title": "Ngozi ya Kawaida",
+      "content": [
+        "Normal Skin ni ngozi iliyo katika hali ya uwiano mzuri.",
+        "Ngozi hii haina mafuta mengi kupita kiasi na haina ukavu kupita kiasi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Ngozi Kavu",
+      "content": [
+        "Dry Skin ni aina ya ngozi inayotengeneza sebum kidogo ikilinganishwa na normal skin.",
+        "Kutokana na kuwa na sebum kidogo, ngozi kavu hukosa lipids zinazohitajika kuhifadhi unyevu na kutengeneza kizuizi dhidi ya external influences."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Ngozi yenye Mafuta Mengi",
+      "content": [
+        "Oily Skin ni aina ya ngozi inayotengeneza sebum kwa kiwango kikubwa kupita kiasi.",
+        "Uzalishaji huu wa mafuta kupita kiasi huitwa seborrhea."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Ngozi Mchanganyiko",
+      "content": [
+        "Combination Skin ni aina ya ngozi yenye mchanganyiko wa aina mbalimbali za ngozi.",
+        "Mara nyingi hali hii huonekana kwenye eneo la T-zone, yaani paji la uso, pua na kidevu."
+      ]
+    },
+    {
+      "type": "image-text",
+      "title": "Upenyo na Unyonyaji wa Vipodozi",
+      "text": [
+        "Kuna tofauti kubwa kati ya ngozi kupenyeza kipodozi (penetration) na ngozi kunyonya kipodozi (absorption).",
+        "Penetration inahusisha malighafi kupenya kwenye tabaka za juu za ngozi, wakati absorption inahusisha malighafi kufikia ndani zaidi na mfumo wa damu."
+      ],
+      "image": "images/absorption-and-penetration.jpg",
+      "imageAlt": "Upenyo na unyonyaji wa vipodozi",
+      "imagePosition": "right"
+    },
+    {
+      "type": "content",
+      "title": "Upenyo wa Malighafi za Vipodozi kwenye Ngozi",
+      "content": [
+        "Kama kipodozi kina malighafi zenye kemikali na kipodozi hicho kikapenya kwenye ngozi, kemikali hizo zitaelekea kutoka Stratum Corneum kuelekea Stratum Basale."
+      ]
+    },
+    {
+      "type": "bullet-list",
+      "title": "Njia za Kemikali Kuingia kwenye Ngozi",
+      "intro": "Kuna njia kuu mbili ambazo kemikali zinaweza kupita ndani ya ngozi:",
+      "items": [
+        "Intercellular Absorption",
+        "Intracellular Absorption"
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Intercellular Absorption",
+      "content": [
+        "Intercellular absorption hutokea kupitia nafasi zilizopo kati ya seli.",
+        "Intercellular lipids zimetengenezwa na cholesterol na fatty acids.",
+        "Aina hii ya upenyo si mzito sana na hutokea kwenye Stratum Corneum."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Intracellular Absorption",
+      "content": [
+        "Intracellular absorption ni aina ya upenyo mzito zaidi.",
+        "Hupenya kupitia tabaka takribani 15–20 za Stratum Corneum.",
+        "Katika hali hii, molekuli ndogo zinaweza kupata njia ya kupenya na kufikia mfumo wa damu."
+      ]
+    },
+    {
+      "type": "image-text",
+      "title": "Aina za Unyonyaji kwenye Ngozi",
+      "text": [
+        "Upenyo wa kwanza kupitia Stratum Corneum si mzito.",
+        "Upenyo wa pili ni mzito zaidi na unaweza kupita kupitia tabaka nyingi za Stratum Corneum.",
+        "Hii ndiyo tofauti kuu kati ya aina hizi mbili za absorption."
+      ],
+      "image": "images/absorption-types.jpg",
+      "imageAlt": "Aina za unyonyaji kwenye ngozi",
+      "imagePosition": "right"
+    },
+    {
+      "type": "content",
+      "title": "Upenyo wa Malighafi hadi Dermis",
+      "content": [
+        "Epidermis ina tabaka tano.",
+        "Baada ya tabaka la basale, tunapata dermis, ambalo ni tabaka la pili la ngozi.",
+        "Basale husaidia katika upenyaji wa malighafi zilizopo kwenye kipodozi kuelekea ndani ya dermis.",
+        "Dermis ni tabaka nyeti linalohusiana na miundo mbalimbali muhimu ya ngozi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Malighafi Zinapofikia Dermis",
+      "content": [
+        "Mara nyingi tunapofikiria penetration, tunafikiria malighafi zikifanya kazi kwenye Stratum Corneum na kutoa matokeo kama anti-aging, ngozi kuwa firm, ngozi kuwa tight na ngozi kuwa plump.",
+        "Malighafi zinapowasiliana na Stratum Corneum kupitia msaada wa basale, molekuli ndogo zinaweza kuungana na dermis.",
+        "Kutoka hapo zinaweza kufikia mfumo wa damu, structural tissues kama collagen na elastin."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Athari za Malighafi Kufikia Ndani ya Ngozi",
+      "content": [
+        "Mchakato huu unaweza kuipa skincare product uwezo wa kusaidia ngozi kuwa firm, tight na plump.",
+        "Pia ina maana kwamba compounds zilizopo kwenye kipodozi zinaweza kusafiri kupitia mfumo wa damu.",
+        "Kwa hiyo, kama malighafi zilizotumika ni nzuri, matokeo yanaweza kuwa mazuri.",
+        "Lakini kama malighafi zina kemikali zisizofaa, zinaweza kuleta madhara.",
+        "Ndiyo maana ni muhimu kuwa makini na malighafi zinazotumika kutengeneza vipodozi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Ngozi ya Uso na Upenyo",
+      "content": [
+        "Ngozi ya usoni ni nyepesi ukilinganisha na sehemu nyingine za mwili.",
+        "Kwa sababu hiyo, malighafi zilizopo kwenye vipodozi zinaweza kufyonzwa kwa urahisi zaidi zinapotumika kwenye uso."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Muda wa Unyonyaji wa Malighafi",
+      "content": [
+        "Muda ambao ngozi inatumia kunyonya malighafi kutoka kwenye kipodozi pia ni muhimu.",
+        "Kwa mfano, ngozi ikiwa imeharibika kutokana na kuondolewa kwa sehemu ya Stratum Corneum, kama vile kujichubua kwa kutumia kemikali, hali hii inaweza kuongeza kiwango cha unyonyaji.",
+        "Hii hutokea kwa sababu seli za Stratum Corneum hazipo katika hali yake kamili ya ulinzi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Madhara ya Ngozi Iliyoharibika",
+      "content": [
+        "Ngozi iliyoharibika inaweza kuruhusu malighafi kupenya kwa kiwango kikubwa zaidi.",
+        "Mchakato huu unaweza kuwa na madhara hasa pale skincare products zinapokuwa na kemikali zinazoweza kusababisha matatizo kama chunusi, eczema na psoriasis."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Penetration Enhancers",
+      "content": [
+        "Baadhi ya malighafi zina uwezo wa kuimarisha upenyo wa malighafi nyingine kwenye ngozi.",
+        "Malighafi hizi huitwa penetration enhancers.",
+        "Zinaweza kupenya kwenye ngozi, kupunguza resistance ya skin barrier na kuruhusu elements nyingine kupita pamoja nazo."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Matumizi ya Penetration Enhancers",
+      "content": [
+        "Penetration enhancers hutumika hasa katika transdermal medication delivery.",
+        "Hata hivyo, ni muhimu kuwa makini kwa sababu kuna aina nyingi za vipodozi vyenye penetration enhancers.",
+        "Utafiti unaonyesha kuwa takribani asilimia 56 ya bidhaa zinaweza kuwa na penetration enhancers."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Tahadhari kuhusu Penetration Enhancers",
+      "content": [
+        "Ingawa penetration enhancers zinaweza kuonekana kuwa na faida, baadhi yake zina kemikali zinazoweza kusababisha muwasho wa ngozi.",
+        "Kwa hiyo, ni vizuri kufanya uchunguzi wa kutosha kabla ya kutumia penetration enhancers."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Malighafi Asilia Zinazosaidia Penetration",
+      "content": [
+        "Malighafi nzuri zinapaswa kuwa na uwezo wa kupenya kwenye ngozi na kufanya kazi iliyokusudiwa.",
+        "Organic Soy Lecithin inaweza kusaidia kwa asili kuimarisha upenyo wa virutubisho vinavyotokana na maji (water-based nutrients).",
+        "Inaweza kutumika kama mbadala mzuri wa propylene glycol."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Emulsion",
+      "content": [
+        "Emulsion ni muunganiko wa maji na mafuta.",
+        "Ni mfumo unaoweza kusaidia kuboresha upenyo wa active ingredients zinazohitajika kwenye ngozi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Matumizi ya Facial Oil",
+      "content": [
+        "Unaweza kutumia facial oil pale unapohisi ngozi yako ni kavu, lakini bado unaona ngozi ikiwa dull na kavu.",
+        "Facial oils ni nzuri kwa ku-condition ngozi na kusaidia kupokea virutubisho vinavyoweza kupenya kwenye vitundu vya ngozi na kwenye intracellular matrix."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Uhusiano kati ya Maji na Mafuta",
+      "content": [
+        "Ngozi ikiwa dehydrated, mafuta yanaweza kupata changamoto ya kupitisha virutubisho ndani ya ngozi.",
+        "Fikiria maji na mafuta kama mchanganyiko mzuri unaosaidia kuboresha texture ya ngozi."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Kupata Matokeo Bora kutoka kwenye Bidhaa",
+      "content": [
+        "Ili kupata matokeo mazuri zaidi, safisha ngozi yako na paka moisturizer inayotokana na emulsion (emulsion-based moisturizer) kwenye ngozi yenye unyevunyevu asubuhi na usiku.",
+        "Unaweza kuongeza facial oil juu ya moisturizer ili kusaidia kufunga unyevunyevu unaotokana na moisturizer uliyopaka awali."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Kupasha Ngozi Joto",
+      "content": [
+        "Kupasha ngozi joto, kwa mfano kupitia facial steaming, kunaweza kusaidia kufungua pores za ngozi na kuruhusu ingredients kupenya."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Exfoliation",
+      "content": [
+        "Exfoliation, au scrub, ni mchakato wa kuondoa seli za ngozi zilizokufa mwishoni mwa mzunguko wa seli."
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Skincare Routine",
+      "content": [
+        "Hakuna skincare routine moja inayowafaa watu wote.",
+        "Ni muhimu kupata routine inayokufaa wewe mwenyewe na kuifuata kwa consistency.",
+        "Huu ni mwongozo wa jumla wa skincare routine ya kila siku."
+      ]
+    },
+    {
+      "type": "bullet-list",
+      "title": "Ratiba ya Kila Siku",
+      "intro": "Fuata hatua hizi kila siku:",
+      "items": [
+        "Cleanse – Safisha ngozi.",
+        "Tone/Hydrate – Tumia toner au ongeza unyevunyevu.",
+        "Serums – Tumia serums.",
+        "Moisturize – Paka moisturizer.",
+        "Sunscreen – Tumia kinga ya jua."
+      ]
+    },
+    {
+      "type": "bullet-list",
+      "title": "Ratiba ya Mara Moja hadi Tatu kwa Wiki",
+      "intro": "Mara moja hadi tatu kwa wiki:",
+      "items": [
+        "Exfoliate – Ondoa seli zilizokufa.",
+        "Mask – Tumia mask ya uso."
+      ]
+    },
+    {
+      "type": "end",
+      "title": "ASANTE SANA",
+      "subtitle": "Tukutane katika Moduli 2",
+      "designation": "Mwisho wa Moduli 1"
+    }
+  ],
+  "author": {
+    "name": "Mecktilda Mugarula",
+    "description": "Professional Formulator & Founder of AsiliSpot Formulation Organization"
+  },
+  "document": {
+    "year": 2026
+  },
+  "next": {
+    "type": "module",
+    "number": 2
+  },
+  "is_final": false,
+  "organization": {
+    "name": "AsiliSpot Formulation Organization",
+    "website": "www.asilispot.org",
+    "phone": "+255 768 078 727"
+  }
 }

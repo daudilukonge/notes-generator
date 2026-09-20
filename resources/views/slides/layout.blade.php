@@ -14,28 +14,22 @@
     @if ($pageCount !== null) data-slide-count="{{ $pageCount }}" @endif
 >
     <div class="slide__surface">
-        <header class="slide__header">
-            @yield('slide-header')
-        </header>
+        @include('slides.partials.header', [
+            'isCover' => $isCover ?? false,
+            'organization' => $organization ?? [],
+            'organizationLogoUrl' => $organizationLogoUrl ?? null,
+            'organizationLogoAvailable' => $organizationLogoAvailable ?? false,
+        ])
 
         <main class="slide__content">
             @yield('slide-content')
         </main>
 
         @if ($showFooter)
-            <footer class="slide__footer">
-                @if ($footer)
-                    <span>{{ $footer }}</span>
-                @endif
-
-                @yield('slide-footer')
-
-                @if ($pageNumber !== null)
-                    <span class="slide__page-number">
-                        {{ $pageNumber }}@if ($pageCount !== null) / {{ $pageCount }}@endif
-                    </span>
-                @endif
-            </footer>
+            @include('slides.partials.footer', [
+                'creationYear' => $creationYear ?? null,
+                'footer' => $footer,
+            ])
         @endif
     </div>
 </article>

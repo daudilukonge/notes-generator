@@ -92,7 +92,7 @@ class SlideDocumentUploadTest extends TestCase
         $this->get($previewUrl)
             ->assertOk()
             ->assertSee('Uploaded course')
-            ->assertSee('1 / 1');
+            ->assertDontSee('slide__page-number', false);
     }
 
     public function test_malformed_json_is_rejected_with_a_friendly_message(): void

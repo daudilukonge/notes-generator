@@ -13,17 +13,23 @@ class SlideRenderer
     /** @var array<string, string> */
     private const TEMPLATES = [
         'title' => 'slides.title',
+        'cover' => 'slides.title',
+        'module-title' => 'slides.module-title',
         'content' => 'slides.content',
         'bullet-list' => 'slides.bullet-list',
         'image-text' => 'slides.image-text',
+        'end' => 'slides.end',
     ];
 
     /** @var array<string, array<int, string>> */
     private const SLIDE_FIELDS = [
-        'title' => ['eyebrow', 'title', 'subtitle'],
+        'title' => ['eyebrow', 'title', 'subtitle', 'designation'],
+        'cover' => ['eyebrow', 'title', 'subtitle', 'designation'],
+        'module-title' => ['eyebrow', 'title'],
         'content' => ['eyebrow', 'title', 'content'],
         'bullet-list' => ['eyebrow', 'title', 'intro', 'items'],
         'image-text' => ['eyebrow', 'title', 'text', 'image', 'imageUrl', 'imageAlt', 'imageCaption', 'imagePosition'],
+        'end' => ['title', 'subtitle', 'designation'],
     ];
 
     /** @param array<string, mixed> $document */
@@ -36,6 +42,40 @@ class SlideRenderer
         $documentTitle = $courseTitle.' — '.$module['title'];
         $footer = $this->footerFor($document, $courseTitle, $module['number']);
         $themeStyle = $this->themeStyle($document['theme'] ?? null);
+        $organization = is_array($document['organization'] ?? null) ? $document['organization'] : [];
+        $organizationLogoUrl = null;
+        $organizationLogoAvailable = false;
+
+        if (is_string($organization['logo'] ?? null)) {
+            $organizationLogo = $organization['logo'];
+
+            if ($forPdf) {
+                $organizationLogoUrl = $this->imageResolver->dataUriFor($documentName, $organizationLogo);
+
+                if ($organizationLogoUrl === null) {
+                    throw new InvalidSlideDocumentException(
+                        "The organization logo [{$organizationLogo}] required by the document could not be found.",
+                    );
+                }
+
+                $organizationLogoAvailable = true;
+            } else {
+                $organizationLogoUrl = $this->imageResolver->urlFor($documentName, $organizationLogo);
+                $organizationLogoAvailable = $this->imageResolver->existingPathFor($documentName, $organizationLogo) !== null;
+            }
+        }
+
+        $shared = [
+            'course' => $document['course'],
+            'module' => $module,
+            'author' => is_array($document['author'] ?? null) ? $document['author'] : [],
+            'organization' => $organization,
+            'documentInfo' => is_array($document['document'] ?? null) ? $document['document'] : [],
+            'next' => is_array($document['next'] ?? null) ? $document['next'] : [],
+            'isFinal' => (bool) ($document['is_final'] ?? false),
+            'organizationLogoUrl' => $organizationLogoUrl,
+            'organizationLogoAvailable' => $organizationLogoAvailable,
+        ];
         $renderedSlides = [];
 
         foreach ($slides as $index => $slide) {
@@ -47,6 +87,7 @@ class SlideRenderer
                 $footer,
                 $documentName,
                 $forPdf,
+                $shared,
             );
         }
 
@@ -78,7 +119,20 @@ class SlideRenderer
     {
         $footerText = $document['footer']['text'] ?? null;
 
-        return is_string($footerText) ? $footerText : $courseTitle.' · Module '.$moduleNumber;
+        if (is_string($footerText)) {
+            return $footerText;
+        }
+
+        $organization = is_array($document['organization'] ?? null) ? $document['organization'] : [];
+        $organizationDetails = array_values(array_filter([
+            $organization['name'] ?? null,
+            $organization['website'] ?? null,
+            $organization['phone'] ?? null,
+        ], static fn (mixed $value): bool => is_string($value) && trim($value) !== ''));
+
+        return $organizationDetails !== []
+            ? implode(' · ', $organizationDetails)
+            : $courseTitle.' · Module '.$moduleNumber;
     }
 
     private function themeStyle(mixed $theme): ?string
@@ -98,7 +152,10 @@ class SlideRenderer
             .'--slide-accent: '.$theme['accent'].';';
     }
 
-    /** @param array<string, mixed> $slide */
+    /**
+     * @param  array<string, mixed>  $slide
+     * @param  array<string, mixed>  $shared
+     */
     private function renderSlide(
         array $slide,
         int $pageNumber,
@@ -107,6 +164,7 @@ class SlideRenderer
         string $footer,
         string $documentName,
         bool $forPdf,
+        array $shared,
     ): string {
         $type = $slide['type'] ?? null;
         $template = is_string($type) ? (self::TEMPLATES[$type] ?? null) : null;
@@ -143,11 +201,13 @@ class SlideRenderer
             unset($slideData['image']);
         }
 
-        return view($template, array_merge($slideData, [
+        return view($template, array_merge($slideData, $shared, [
             'documentTitle' => $documentTitle,
             'pageNumber' => $pageNumber,
             'pageCount' => $pageCount,
             'footer' => $footer,
+            'creationYear' => $shared['documentInfo']['year'] ?? null,
+            'isCover' => in_array($type, ['cover', 'title'], true),
         ]))->render();
     }
 }

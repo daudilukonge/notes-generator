@@ -18,9 +18,12 @@ class CourseDocumentLoader
     /** @var array<int, string> */
     public const SUPPORTED_SLIDE_TYPES = [
         'title',
+        'cover',
+        'module-title',
         'content',
         'bullet-list',
         'image-text',
+        'end',
     ];
 
     public function __construct(private readonly ?string $contentDirectory = null) {}
@@ -43,6 +46,11 @@ class CourseDocumentLoader
     public function imageReferences(array $document): array
     {
         $references = [];
+        $organizationLogo = $document['organization']['logo'] ?? null;
+
+        if (is_string($organizationLogo)) {
+            $references[] = SlideDocumentImageResolver::normalizeReference($organizationLogo);
+        }
 
         foreach ($document['slides'] as $slide) {
             if (! is_array($slide) || ($slide['type'] ?? null) !== 'image-text') {
@@ -164,7 +172,23 @@ class CourseDocumentLoader
             'module' => ['required', 'array'],
             'module.number' => ['required', 'integer', 'min:1'],
             'module.title' => ['required', 'string'],
+            'module.designation' => ['sometimes', 'string', 'max:255'],
             'metadata' => ['sometimes', 'array'],
+            'author' => ['sometimes', 'array'],
+            'author.name' => ['sometimes', 'string', 'max:255'],
+            'author.description' => ['sometimes', 'string', 'max:255'],
+            'organization' => ['sometimes', 'array'],
+            'organization.name' => ['sometimes', 'string', 'max:255'],
+            'organization.logo' => ['sometimes', 'string'],
+            'organization.website' => ['sometimes', 'string', 'max:255'],
+            'organization.phone' => ['sometimes', 'string', 'max:255'],
+            'document' => ['sometimes', 'array'],
+            'document.year' => ['sometimes', 'integer', 'min:1900', 'max:3000'],
+            'next' => ['sometimes', 'array'],
+            'next.type' => ['sometimes', 'string', 'in:module,document'],
+            'next.number' => ['sometimes', 'integer', 'min:1'],
+            'next.title' => ['sometimes', 'string', 'max:255'],
+            'is_final' => ['sometimes', 'boolean'],
             'theme' => ['sometimes', 'array'],
             'theme.primary' => ['required_with:theme', 'string', 'regex:'.self::THEME_COLOR_PATTERN],
             'theme.secondary' => ['required_with:theme', 'string', 'regex:'.self::THEME_COLOR_PATTERN],
@@ -177,6 +201,16 @@ class CourseDocumentLoader
         ]);
 
         $validator->after(function (Validator $validator) use ($document): void {
+            $this->validateDocumentStructure($validator, $document);
+
+            $organizationLogo = $document['organization']['logo'] ?? null;
+
+            if ($organizationLogo !== null && ! SlideDocumentImageResolver::isSafeReference($organizationLogo)) {
+                $validator->errors()->add(
+                    'organization.logo',
+                    'The organization.logo field must reference a local image filename inside the document images directory.',
+                );
+            }
             foreach ($document['slides'] ?? [] as $index => $slide) {
                 if (! is_array($slide)) {
                     continue;
@@ -217,7 +251,7 @@ class CourseDocumentLoader
     private function requiredFieldsFor(string $type): array
     {
         return array_merge(match ($type) {
-            'title', 'content', 'bullet-list', 'image-text' => ['title'],
+            'title', 'cover', 'module-title', 'content', 'bullet-list', 'image-text', 'end' => ['title'],
             default => [],
         }, match ($type) {
             'content' => ['content'],
@@ -234,7 +268,7 @@ class CourseDocumentLoader
             $validator->errors()->add("slides.{$index}.title", 'The title field must be a non-empty string.');
         }
 
-        foreach (['eyebrow', 'subtitle', 'intro', 'imageUrl', 'image', 'imageAlt', 'imageCaption'] as $field) {
+        foreach (['eyebrow', 'subtitle', 'intro', 'designation', 'imageUrl', 'image', 'imageAlt', 'imageCaption'] as $field) {
             if (array_key_exists($field, $slide) && ! is_string($slide[$field])) {
                 $validator->errors()->add("slides.{$index}.{$field}", "The {$field} field must be a string.");
             }
@@ -278,6 +312,45 @@ class CourseDocumentLoader
                 "slides.{$index}.imagePosition",
                 'The imagePosition field must be either left or right.',
             );
+        }
+    }
+
+    /** @param array<string, mixed> $document */
+    private function validateDocumentStructure(Validator $validator, array $document): void
+    {
+        $slides = $document['slides'] ?? [];
+
+        if (! is_array($slides)) {
+            return;
+        }
+
+        $types = array_values(array_filter(array_map(
+            static fn (mixed $slide): mixed => is_array($slide) ? ($slide['type'] ?? null) : null,
+            $slides,
+        ), static fn (mixed $type): bool => is_string($type)));
+
+        $usesStructuredShell = in_array('cover', $types, true)
+            || in_array('module-title', $types, true)
+            || in_array('end', $types, true);
+
+        if (! $usesStructuredShell) {
+            return;
+        }
+
+        if (($types[0] ?? null) !== 'cover') {
+            $validator->errors()->add('slides', 'Structured documents must begin with a cover slide.');
+        }
+
+        if (($types[1] ?? null) !== 'module-title') {
+            $validator->errors()->add('slides', 'Structured documents must place a module-title slide after the cover slide.');
+        }
+
+        $endIndexes = array_keys(array_filter($types, static fn (string $type): bool => $type === 'end'));
+
+        if (count($endIndexes) !== 1) {
+            $validator->errors()->add('slides', 'Structured documents must contain exactly one end slide.');
+        } elseif ($endIndexes[0] !== count($types) - 1) {
+            $validator->errors()->add('slides', 'The end slide must be the final slide.');
         }
     }
 

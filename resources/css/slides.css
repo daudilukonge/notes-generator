@@ -184,13 +184,154 @@ body.slides-document {
 }
 
 .slide--title .slide__title-block {
+    max-width: none;
+}
+
+.slide__cover-content {
+    display: flex;
+    width: 100%;
     max-width: 68%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.slide__cover-designation {
+    align-self: flex-start;
+    margin: 0;
 }
 
 .slide--title .slide__eyebrow {
     color: var(--slide-accent);
 }
 
+.slide--title .slide__header {
+    position: relative;
+}
+
+.slide__organization {
+    margin: 0;
+    color: var(--slide-primary);
+    font-size: 0.9rem;
+    font-weight: var(--slide-heading-weight);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.slide__logo {
+    display: block;
+    width: auto;
+    max-width: 9rem;
+    height: 2.25rem;
+    max-height: 3rem;
+    margin-left: auto;
+    object-fit: contain;
+}
+
+
+
+.slide--title .slide__organization,
+.slide--title .slide__designation,
+.slide--title .slide__author-name,
+.slide--title .slide__author-description,
+.slide--end .slide__end-author,
+.slide--end .slide__designation,
+.slide--end .slide__author-name,
+.slide--end .slide__author-description {
+    color: var(--slide-on-primary);
+}
+
+.slide__author {
+    margin-top: var(--slide-space-lg);
+}
+
+.slide__author-name,
+.slide__author-description,
+.slide__designation {
+    margin: 0;
+}
+
+.slide__author-name {
+    font-size: 1.15rem;
+    font-weight: var(--slide-heading-weight);
+}
+
+.slide__author-description,
+.slide__designation {
+    color: var(--slide-muted);
+    font-size: 0.9rem;
+}
+
+.slide__designation {
+    margin-top: var(--slide-space-xs);
+    font-weight: var(--slide-heading-weight);
+    letter-spacing: 0.08em;
+}
+
+.slide--module-title .slide__content,
+.slide--end .slide__content {
+    align-items: center;
+    text-align: center;
+}
+
+.slide__module-title {
+    max-width: 75%;
+}
+
+.slide__end-content {
+    display: flex;
+    width: 100%;
+    max-width: 75%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.slide__end-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slide__end-author {
+    margin: var(--slide-space-lg) 0 0;
+    color: var(--slide-primary);
+    font-size: 1.15rem;
+    font-weight: var(--slide-heading-weight);
+}
+
+.slide__end-designation {
+    margin: 0;
+    color: var(--slide-primary);
+    font-size: 1rem;
+    text-transform: none;
+}
+
+.slide--module-title .slide__title {
+    margin-bottom: 0;
+}
+
+.slide--end {
+    background: var(--slide-secondary);
+}
+
+.slide__end-title {
+    margin: 0;
+    color: var(--slide-primary);
+    font-size: var(--slide-title-size);
+    font-weight: var(--slide-heading-weight);
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+}
+
+.slide__end-subtitle {
+    max-width: 48rem;
+    margin: var(--slide-space-md) auto 0;
+    color: var(--slide-muted);
+    font-size: clamp(1.1rem, 2vw, 1.75rem);
+}
 .slide--title .slide__title {
     color: var(--slide-on-primary);
 }
@@ -200,6 +341,7 @@ body.slides-document {
     color: var(--slide-on-primary);
     opacity: 0.86;
 }
+
 
 .slide__title {
     margin-bottom: var(--slide-space-sm);
@@ -251,18 +393,30 @@ body.slides-document {
 }
 
 .slide__footer {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     min-height: 1.5rem;
     align-items: center;
-    justify-content: space-between;
     gap: var(--slide-space-sm);
     color: var(--slide-muted);
     font-size: 0.8rem;
 }
 
-.slide__page-number {
-    margin-left: auto;
+.slide__footer-year {
+    grid-column: 1;
+    justify-self: start;
 }
+
+.slide__footer-text {
+    grid-column: 2;
+    justify-self: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 
 .slide__image-text {
     display: grid;
@@ -275,6 +429,14 @@ body.slides-document {
 }
 
 .slide--image-left .slide__image-wrap {
+    order: 1;
+}
+
+.slide--image-left .slide__prose {
+    order: 2;
+}
+
+.slide--image-right .slide__prose {
     order: 1;
 }
 

@@ -57,7 +57,7 @@ class SlidePdfController extends Controller
         $moduleNumber = is_int($document['module']['number'] ?? null) ? $document['module']['number'] : null;
         $parts = [Str::slug($courseTitle)];
 
-        if ($moduleNumber !== null) {
+        if ($moduleNumber !== null && $moduleNumber > 0) {
             $parts[] = 'module-'.$moduleNumber;
         }
 

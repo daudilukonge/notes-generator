@@ -170,7 +170,7 @@ class CourseDocumentLoader
             'course' => ['required', 'array'],
             'course.title' => ['required', 'string'],
             'module' => ['required', 'array'],
-            'module.number' => ['required', 'integer', 'min:1'],
+            'module.number' => ['required', 'integer', 'min:0'],
             'module.title' => ['required', 'string'],
             'module.designation' => ['sometimes', 'string', 'max:255'],
             'metadata' => ['sometimes', 'array'],

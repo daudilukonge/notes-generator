@@ -33,6 +33,31 @@ class SlideDocumentUploadTest extends TestCase
         ));
     }
 
+    public function test_a_non_module_document_with_module_number_zero_is_uploaded_and_stored(): void
+    {
+        Storage::fake('slide_documents');
+        $document = $this->validDocument();
+        $document['course']['title'] = 'Utangulizi wa Kozi';
+        $document['module'] = ['number' => 0, 'title' => 'Utangulizi wa Kozi'];
+
+        $response = $this->post(route('slides.upload.store'), [
+            'file' => $this->jsonUpload('course-introduction.json', $document),
+        ]);
+
+        $response->assertRedirect()
+            ->assertSessionHas('success');
+
+        $files = Storage::disk('slide_documents')->allFiles('slide-documents');
+
+        self::assertCount(1, $files);
+        self::assertSame($document, json_decode(
+            Storage::disk('slide_documents')->get($files[0]),
+            true,
+            512,
+            JSON_THROW_ON_ERROR,
+        ));
+    }
+
     public function test_document_theme_and_footer_are_accepted_and_stored(): void
     {
         Storage::fake('slide_documents');

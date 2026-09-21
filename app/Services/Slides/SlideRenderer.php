@@ -123,9 +123,13 @@ class SlideRenderer
             $organization['phone'] ?? null,
         ], static fn (mixed $value): bool => is_string($value) && trim($value) !== ''));
 
-        return $organizationDetails !== []
-            ? implode(' · ', $organizationDetails)
-            : $courseTitle.' · Module '.$moduleNumber;
+        if ($organizationDetails !== []) {
+            return implode(' · ', $organizationDetails);
+        }
+
+        return $moduleNumber > 0
+            ? $courseTitle.' · Module '.$moduleNumber
+            : $courseTitle;
     }
 
     private function themeStyle(mixed $theme): ?string

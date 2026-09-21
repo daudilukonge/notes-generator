@@ -36,6 +36,33 @@ class SlideDocumentPackageUploadTest extends TestCase
         );
     }
 
+    public function test_a_non_module_package_with_module_number_zero_is_uploaded(): void
+    {
+        Storage::fake('slide_documents');
+        $document = $this->titleDocument();
+        $document['course']['title'] = 'Hitimisho';
+        $document['module'] = ['number' => 0, 'title' => 'Hitimisho'];
+
+        $response = $this->post(route('slides.upload.store'), [
+            'file' => $this->zipUpload([
+                'document.json' => json_encode($document, JSON_THROW_ON_ERROR),
+            ], 'conclusion.zip'),
+        ]);
+
+        $response->assertRedirect();
+        $documentIdentifier = $this->documentIdentifierFrom($response->getTargetUrl());
+
+        self::assertSame(
+            $document,
+            json_decode(
+                Storage::disk('slide_documents')->get("slide-documents/{$documentIdentifier}/document.json"),
+                true,
+                512,
+                JSON_THROW_ON_ERROR,
+            ),
+        );
+    }
+
     public function test_an_uploaded_package_can_be_previewed_and_its_referenced_image_renders(): void
     {
         Storage::fake('slide_documents');

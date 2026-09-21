@@ -116,6 +116,25 @@ class SlidePreviewTest extends TestCase
             ->assertSee('contains invalid JSON');
     }
 
+    public function test_a_non_module_document_with_module_number_zero_renders_without_module_zero_label(): void
+    {
+        Storage::fake('slide_documents');
+        $document = [
+            'course' => ['title' => 'Utangulizi wa Kozi'],
+            'module' => ['number' => 0, 'title' => 'Utangulizi wa Kozi'],
+            'slides' => [['type' => 'title', 'title' => 'Utangulizi wa Kozi']],
+        ];
+        Storage::disk('slide_documents')->put(
+            'slide-documents/course-introduction/document.json',
+            json_encode($document, JSON_THROW_ON_ERROR),
+        );
+
+        $this->get(route('slides.preview', ['document' => 'course-introduction']))
+            ->assertOk()
+            ->assertSee('Utangulizi wa Kozi')
+            ->assertDontSee('Module 0');
+    }
+
     public function test_a_document_image_is_rendered_from_its_private_image_directory(): void
     {
         Storage::fake('slide_documents');

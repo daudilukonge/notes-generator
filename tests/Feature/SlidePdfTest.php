@@ -131,6 +131,26 @@ class SlidePdfTest extends TestCase
         );
     }
 
+    public function test_pdf_generation_keeps_rendering_when_organization_logo_is_missing(): void
+    {
+        Storage::fake('slide_documents');
+        $document = $this->completeDocument();
+        $document['organization'] = [
+            'name' => 'PDF organization',
+            'logo' => 'images/missing-logo.png',
+        ];
+        $storage = Storage::disk('slide_documents');
+        $storage->put('slide-documents/missing-logo/document.json', json_encode($document, JSON_THROW_ON_ERROR));
+        $storage->put('slide-documents/missing-logo/images/skin.png', $this->imageContents());
+
+        $response = $this->get(route('slides.pdf', ['document' => 'missing-logo']));
+
+        $response->assertOk()
+            ->assertHeader('Content-Type', 'application/pdf');
+
+        self::assertSame(4, preg_match_all('#/Type[[:space:]]+/Page(?!s)#', $response->getContent()));
+    }
+
     public function test_structured_document_pdf_keeps_explicit_order_and_local_images(): void
     {
         Storage::fake('slide_documents');

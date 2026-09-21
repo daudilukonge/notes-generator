@@ -51,14 +51,7 @@ class SlideRenderer
 
             if ($forPdf) {
                 $organizationLogoUrl = $this->imageResolver->dataUriFor($documentName, $organizationLogo);
-
-                if ($organizationLogoUrl === null) {
-                    throw new InvalidSlideDocumentException(
-                        "The organization logo [{$organizationLogo}] required by the document could not be found.",
-                    );
-                }
-
-                $organizationLogoAvailable = true;
+                $organizationLogoAvailable = $organizationLogoUrl !== null;
             } else {
                 $organizationLogoUrl = $this->imageResolver->urlFor($documentName, $organizationLogo);
                 $organizationLogoAvailable = $this->imageResolver->existingPathFor($documentName, $organizationLogo) !== null;

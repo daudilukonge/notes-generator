@@ -16,13 +16,14 @@ class SlidePreviewTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Uundaji wa Bidhaa za Ngozi')
+            ->assertSee('slide__cover-main', false)
+            ->assertSee('slide__end-content', false)
             ->assertSee('Sayansi ya Ngozi')
             ->assertSee('Module 1')
             ->assertSee('Tukutane katika Moduli 2')
             ->assertSee('Mecktilda Mugarula')
             ->assertSee('Mwisho wa Moduli 1')
             ->assertDontSee('Moduli 1: Utambulisho wa Sayansi ya Ngozi')
-            ->assertSee('Sayansi ya Ngozi')
             ->assertDontSee('slide__page-number', false)
             ->assertSee('2026')
             ->assertSee('AsiliSpot Formulation Organization | www.asilispot.org | +255 768 078 727')
@@ -75,6 +76,7 @@ class SlidePreviewTest extends TestCase
 
         self::assertSame('Uundaji wa Bidhaa za Ngozi', $document['course']['title']);
         self::assertSame('Sayansi ya Ngozi', $document['module']['title']);
+        self::assertSame('images/logo.png', $document['organization']['logo']);
         $types = array_column($loader->slides($document), 'type');
 
         self::assertSame(['cover', 'module-title', 'content'], array_slice($types, 0, 3));
@@ -195,6 +197,10 @@ class SlidePreviewTest extends TestCase
         $styles = file_get_contents(resource_path('css/slides.css'));
 
         self::assertIsString($styles);
+        self::assertStringContainsString('font-size: 0.95rem;', $styles);
+        self::assertStringContainsString('.slide__cover-main {', $styles);
+        self::assertStringContainsString('.slide--end .slide__content {', $styles);
+        self::assertStringContainsString('text-align: left;', $styles);
         self::assertStringContainsString('object-fit: contain;', $styles);
         self::assertStringContainsString('max-width: 100%;', $styles);
         self::assertStringContainsString('max-height: 100%;', $styles);
@@ -236,7 +242,7 @@ class SlidePreviewTest extends TestCase
             ],
             'organization' => [
                 'name' => 'Example Organization',
-                'logo' => 'logo.png',
+                'logo' => 'images/logo.png',
                 'website' => 'example.test',
                 'phone' => '+255 700 000 000',
             ],
@@ -272,6 +278,7 @@ class SlidePreviewTest extends TestCase
             ->assertDontSee('slide__page-number', false);
 
         self::assertSame(1, substr_count($response->getContent(), 'slide__organization'));
+        self::assertSame(4, substr_count($response->getContent(), route('slides.image', ['document' => 'structured-document', 'image' => 'logo.png'])));
     }
 
     public function test_a_final_course_can_render_an_explicit_course_end_message(): void

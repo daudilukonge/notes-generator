@@ -571,6 +571,7 @@
   "is_final": false,
   "organization": {
     "name": "AsiliSpot Formulation Organization",
+    "logo": "images/logo.png",
     "website": "www.asilispot.org",
     "phone": "+255 768 078 727"
   }

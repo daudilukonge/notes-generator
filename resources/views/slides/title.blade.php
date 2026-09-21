@@ -8,24 +8,26 @@
 
 @section('slide-content')
     <div class="slide__cover-content">
-        <div class="slide__title-block">
-            <h1 class="slide__title">{{ $title ?? '' }}</h1>
+        <div class="slide__cover-main">
+            <div class="slide__title-block">
+                <h1 class="slide__title">{{ $title ?? '' }}</h1>
 
-            @if (($subtitle ?? null) && ! ($isCover ?? false))
-                <p class="slide__subtitle">{{ $subtitle }}</p>
-            @endif
+                @if (($subtitle ?? null) && ! ($isCover ?? false))
+                    <p class="slide__subtitle">{{ $subtitle }}</p>
+                @endif
 
-            @if (($author['name'] ?? null) || ($author['description'] ?? null))
-                <div class="slide__author">
-                    @if ($author['name'] ?? null)
-                        <p class="slide__author-name">{{ $author['name'] }}</p>
-                    @endif
+                @if (($author['name'] ?? null) || ($author['description'] ?? null))
+                    <div class="slide__author">
+                        @if ($author['name'] ?? null)
+                            <p class="slide__author-name">{{ $author['name'] }}</p>
+                        @endif
 
-                    @if ($author['description'] ?? null)
-                        <p class="slide__author-description">{{ $author['description'] }}</p>
-                    @endif
-                </div>
-            @endif
+                        @if ($author['description'] ?? null)
+                            <p class="slide__author-description">{{ $author['description'] }}</p>
+                        @endif
+                    </div>
+                @endif
+            </div>
         </div>
 
         @if ($designation ?? null)
